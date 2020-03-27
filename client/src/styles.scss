@@ -97,3 +97,13 @@ form {
     margin-top: 16px;
   }
 }
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  height: 30%;
+  margin-left: 45%;
+}
+.form {
+  border: 1px solid purple;
+}
