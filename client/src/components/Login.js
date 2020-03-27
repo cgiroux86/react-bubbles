@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -41,16 +41,20 @@ const Login = () => {
               placeholder="username"
             ></input>
           </div>
-          <label>Password</label>
-          <br />
-          <input
-            onChange={handleChanges}
-            name="password"
-            type="password"
-            placeholder="password"
-          ></input>
-          <br />
-          <button onClick={handleLogin}>Login</button>
+          <div>
+            <label>Password</label>
+          </div>
+          <div>
+            <input
+              onChange={handleChanges}
+              name="password"
+              type="password"
+              placeholder="password"
+            ></input>
+          </div>
+          <div className="button-row">
+            <button onClick={handleLogin}>Login</button>
+          </div>
         </form>
       </div>
     </>

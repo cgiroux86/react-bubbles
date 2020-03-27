@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
 
@@ -7,8 +7,6 @@ const initialColor = {
   color: "",
   code: { hex: "" }
 };
-
-// useEffect(() => {});
 
 const ColorList = ({ colors, updateColors }) => {
   const history = useHistory();
@@ -43,9 +41,6 @@ const ColorList = ({ colors, updateColors }) => {
         history.push("/user");
       })
       .catch(err => console.log(err));
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
   };
 
   const deleteColor = color => {
@@ -70,8 +65,6 @@ const ColorList = ({ colors, updateColors }) => {
             onClick={() => {
               editColor(color);
               setId(color.id);
-
-              // setColorToEdit(initialColor);
             }}
           >
             <span>
@@ -79,13 +72,8 @@ const ColorList = ({ colors, updateColors }) => {
                 className="delete"
                 onClick={e => {
                   e.stopPropagation();
-                  // setId(color.id);
                   deleteColor(color);
                 }}
-                // onMouseUp={e => {
-                //   e.stopPropagation();
-                //   deleteColor(id);
-                // }}
               >
                 x
               </span>{" "}
@@ -130,41 +118,49 @@ const ColorList = ({ colors, updateColors }) => {
       )}
       <div className="spacer">
         <form>
-          <input
-            onChange={handleChanges}
-            type="text"
-            name="color"
-            placeholder="color"
-            value={addColor.color}
-          ></input>
-          <input
-            onChange={e =>
-              setAddColor({
-                ...addColor,
-                code: { hex: e.target.value }
-              })
-            }
-            type="text"
-            name="hex"
-            placeholder="hex value"
-            value={addColor.code.hex}
-          ></input>
-          <button
-            onClick={e => {
-              e.preventDefault();
-              console.log(addColor);
-              axiosWithAuth()
-                .post("/api/colors", addColor)
-                .then(res => {
-                  updateColors(res.data);
-                  console.log(res);
-                  setAddColor({ color: "", code: { hex: "" } });
+          <label>
+            Color
+            <input
+              onChange={handleChanges}
+              type="text"
+              name="color"
+              placeholder="color"
+              value={addColor.color}
+            ></input>
+          </label>
+          <label>
+            Hex
+            <input
+              onChange={e =>
+                setAddColor({
+                  ...addColor,
+                  code: { hex: e.target.value }
                 })
-                .catch(err => console.log(err));
-            }}
-          >
-            Add Color
-          </button>
+              }
+              type="text"
+              name="hex"
+              placeholder="hex value"
+              value={addColor.code.hex}
+            ></input>
+          </label>
+          <div className="button-row">
+            <button
+              onClick={e => {
+                e.preventDefault();
+                console.log(addColor);
+                axiosWithAuth()
+                  .post("/api/colors", addColor)
+                  .then(res => {
+                    updateColors(res.data);
+                    console.log(res);
+                    setAddColor({ color: "", code: { hex: "" } });
+                  })
+                  .catch(err => console.log(err));
+              }}
+            >
+              Add Color
+            </button>
+          </div>
         </form>
       </div>
     </div>
